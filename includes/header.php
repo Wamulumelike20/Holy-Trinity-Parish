@@ -65,14 +65,12 @@
                     <a href="/holy-trinity/pages/dashboard.php" class="dropdown-toggle <?= strpos($_SERVER['PHP_SELF'], 'dashboard') ? 'active' : '' ?>"><i class="fas fa-th-large"></i> Dashboards <i class="fas fa-chevron-down"></i></a>
                     <ul class="dropdown-menu">
                         <li><a href="/holy-trinity/pages/dashboard.php"><i class="fas fa-globe"></i> Parish Dashboard</a></li>
+                        <li><a href="/holy-trinity/department/login.php"><i class="fas fa-building"></i> Department Login</a></li>
                         <?php if (isLoggedIn()): ?>
                             <li><a href="/holy-trinity/portal/dashboard.php"><i class="fas fa-user"></i> My Portal</a></li>
                             <?php if (in_array($_SESSION['user_role'] ?? '', ['priest', 'super_admin', 'admin'])): ?>
                                 <li><a href="/holy-trinity/priest/dashboard.php"><i class="fas fa-church"></i> Priest Dashboard</a></li>
                                 <li><a href="/holy-trinity/admin/dashboard.php"><i class="fas fa-tachometer-alt"></i> Admin Dashboard</a></li>
-                            <?php endif; ?>
-                            <?php if (in_array($_SESSION['user_role'] ?? '', ['department_head', 'priest', 'super_admin', 'admin'])): ?>
-                                <li><a href="/holy-trinity/department/dashboard.php"><i class="fas fa-building"></i> Department Dashboard</a></li>
                             <?php endif; ?>
                         <?php endif; ?>
                     </ul>

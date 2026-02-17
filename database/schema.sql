@@ -445,15 +445,35 @@ INSERT INTO settings (setting_key, setting_value, setting_group) VALUES
 INSERT INTO users (first_name, last_name, email, phone, password_hash, role, is_active, email_verified) VALUES
 ('System', 'Administrator', 'admin@holytrinityparish.org', '+260700000000', '$2y$12$2Ck8Ra0uitw63YLhM9p1HOixLnUfUEpR2VMhO/FmbyqztttVcL5.6', 'super_admin', 1, 1);
 
--- Default Departments
-INSERT INTO departments (name, slug, description) VALUES
-('Parish Office', 'parish-office', 'Central administrative office of the parish'),
-('Finance Department', 'finance', 'Manages parish finances, budgets, and donations'),
-('Catechism Department', 'catechism', 'Responsible for faith formation and religious education'),
-('Youth Ministry', 'youth-ministry', 'Engages and nurtures the faith of young parishioners'),
-('Choir', 'choir', 'Leads the parish in liturgical music and worship'),
-('Marriage & Family Life', 'marriage-family', 'Supports married couples and families in faith'),
-('Social Outreach', 'social-outreach', 'Coordinates charitable works and community service');
+-- Department Admin Users (password: Dept@123 for all)
+INSERT INTO users (first_name, last_name, email, phone, password_hash, role, is_active, email_verified) VALUES
+('Grace', 'Phiri', 'office@holytrinityparish.org', '+260711000001', '$2y$12$2Ck8Ra0uitw63YLhM9p1HOixLnUfUEpR2VMhO/FmbyqztttVcL5.6', 'department_head', 1, 1),
+('David', 'Mwansa', 'finance@holytrinityparish.org', '+260711000002', '$2y$12$2Ck8Ra0uitw63YLhM9p1HOixLnUfUEpR2VMhO/FmbyqztttVcL5.6', 'department_head', 1, 1),
+('Mary', 'Chilufya', 'catechism@holytrinityparish.org', '+260711000003', '$2y$12$2Ck8Ra0uitw63YLhM9p1HOixLnUfUEpR2VMhO/FmbyqztttVcL5.6', 'department_head', 1, 1),
+('Peter', 'Kasonde', 'youth@holytrinityparish.org', '+260711000004', '$2y$12$2Ck8Ra0uitw63YLhM9p1HOixLnUfUEpR2VMhO/FmbyqztttVcL5.6', 'department_head', 1, 1),
+('Ruth', 'Mutale', 'choir@holytrinityparish.org', '+260711000005', '$2y$12$2Ck8Ra0uitw63YLhM9p1HOixLnUfUEpR2VMhO/FmbyqztttVcL5.6', 'department_head', 1, 1),
+('James', 'Bwalya', 'marriage@holytrinityparish.org', '+260711000006', '$2y$12$2Ck8Ra0uitw63YLhM9p1HOixLnUfUEpR2VMhO/FmbyqztttVcL5.6', 'department_head', 1, 1),
+('Agnes', 'Mumba', 'outreach@holytrinityparish.org', '+260711000007', '$2y$12$2Ck8Ra0uitw63YLhM9p1HOixLnUfUEpR2VMhO/FmbyqztttVcL5.6', 'department_head', 1, 1);
+
+-- Default Departments (head_user_id references: admin=1, office=2, finance=3, catechism=4, youth=5, choir=6, marriage=7, outreach=8)
+INSERT INTO departments (name, slug, description, head_user_id) VALUES
+('Parish Office', 'parish-office', 'Central administrative office of the parish', 2),
+('Finance Department', 'finance', 'Manages parish finances, budgets, and donations', 3),
+('Catechism Department', 'catechism', 'Responsible for faith formation and religious education', 4),
+('Youth Ministry', 'youth-ministry', 'Engages and nurtures the faith of young parishioners', 5),
+('Choir', 'choir', 'Leads the parish in liturgical music and worship', 6),
+('Marriage & Family Life', 'marriage-family', 'Supports married couples and families in faith', 7),
+('Social Outreach', 'social-outreach', 'Coordinates charitable works and community service', 8);
+
+-- Add department heads as department members with 'head' role
+INSERT INTO department_members (department_id, user_id, role) VALUES
+(1, 2, 'head'),
+(2, 3, 'head'),
+(3, 4, 'head'),
+(4, 5, 'head'),
+(5, 6, 'head'),
+(6, 7, 'head'),
+(7, 8, 'head');
 
 -- Default Donation Categories
 INSERT INTO donation_categories (name, description) VALUES
