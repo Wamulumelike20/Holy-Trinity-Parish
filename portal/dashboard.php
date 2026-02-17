@@ -65,6 +65,22 @@ $myMinistries = $db->fetchAll(
                 <div class="sidebar-section">Quick Actions</div>
                 <a href="/holy-trinity/appointments/book.php"><i class="fas fa-calendar-plus"></i> Book Appointment</a>
                 <a href="/holy-trinity/donations/donate.php"><i class="fas fa-donate"></i> Make Donation</a>
+                <a href="/holy-trinity/pages/dashboard.php"><i class="fas fa-chart-line"></i> Parish Dashboard</a>
+                <?php
+                $userDepts = getUserDepartments($user['id']);
+                if (!empty($userDepts)):
+                ?>
+                <div class="sidebar-section">My Departments</div>
+                <?php foreach ($userDepts as $ud): ?>
+                    <a href="/holy-trinity/department/dashboard.php?dept=<?= $ud['id'] ?>"><i class="fas fa-building"></i> <?= sanitize($ud['name']) ?></a>
+                <?php endforeach; ?>
+                <?php endif; ?>
+                <?php if (in_array($user['role'], ['priest', 'super_admin', 'admin'])): ?>
+                <div class="sidebar-section">Administration</div>
+                <a href="/holy-trinity/priest/dashboard.php"><i class="fas fa-church"></i> Priest Dashboard</a>
+                <a href="/holy-trinity/admin/dashboard.php"><i class="fas fa-tachometer-alt"></i> Admin Panel</a>
+                <?php endif; ?>
+                <div class="sidebar-section">Account</div>
                 <a href="/holy-trinity/index.php"><i class="fas fa-globe"></i> Visit Website</a>
                 <a href="/holy-trinity/auth/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </nav>
@@ -81,7 +97,8 @@ $myMinistries = $db->fetchAll(
                     <h1>Welcome, <?= sanitize($user['first_name']) ?>!</h1>
                     <p class="text-muted">Here's an overview of your parish activities</p>
                 </div>
-                <div>
+                <div style="display:flex; gap:0.75rem; align-items:center;">
+                    <?php include __DIR__ . '/../includes/notifications.php'; ?>
                     <span class="badge badge-primary" style="font-size:0.85rem; padding:0.5rem 1rem;">
                         <i class="fas fa-user"></i> <?= ucfirst($user['role']) ?>
                     </span>

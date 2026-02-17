@@ -97,6 +97,16 @@ $donationByCategory = $db->fetchAll(
                 <a href="/holy-trinity/admin/reports.php"><i class="fas fa-chart-bar"></i> Reports</a>
                 <?php endif; ?>
 
+                <?php if (in_array($_SESSION['user_role'], ['priest', 'super_admin', 'admin'])): ?>
+                <div class="sidebar-section">Dashboards</div>
+                <a href="/holy-trinity/priest/dashboard.php"><i class="fas fa-church"></i> Priest Dashboard</a>
+                <a href="/holy-trinity/pages/dashboard.php"><i class="fas fa-globe"></i> Public Dashboard</a>
+                <?php endif; ?>
+                <?php if ($_SESSION['user_role'] === 'department_head'): ?>
+                <div class="sidebar-section">My Department</div>
+                <a href="/holy-trinity/department/dashboard.php"><i class="fas fa-building"></i> Dept Dashboard</a>
+                <?php endif; ?>
+
                 <div class="sidebar-section">Account</div>
                 <a href="/holy-trinity/index.php"><i class="fas fa-globe"></i> View Website</a>
                 <a href="/holy-trinity/auth/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
@@ -114,7 +124,8 @@ $donationByCategory = $db->fetchAll(
                     <h1>Admin Dashboard</h1>
                     <p class="text-muted">Welcome back, <?= sanitize($user['first_name']) ?> &bull; <?= date('l, F j, Y') ?></p>
                 </div>
-                <div style="display:flex; gap:0.75rem;">
+                <div style="display:flex; gap:0.75rem; align-items:center;">
+                    <?php include __DIR__ . '/../includes/notifications.php'; ?>
                     <a href="/holy-trinity/admin/appointments.php" class="btn btn-sm btn-primary">
                         <i class="fas fa-calendar-plus"></i> Manage Appointments
                     </a>

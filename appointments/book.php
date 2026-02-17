@@ -4,6 +4,12 @@ require_once __DIR__ . '/../includes/header.php';
 
 $db = Database::getInstance();
 
+// Fetch clergy (priests) for the "Which priest" dropdown
+$clergyList = $db->fetchAll("
+    SELECT c.id as clergy_id, c.title, c.full_name, c.position, c.user_id
+    FROM clergy c WHERE c.is_active = 1 ORDER BY c.display_order, c.full_name
+");
+
 // Fetch available providers (priests and department heads)
 $providers = $db->fetchAll("
     SELECT u.id, u.first_name, u.last_name, u.role, d.name as department_name, d.id as department_id
@@ -23,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn()) {
     if (!verifyCSRFToken($_POST['csrf_token'] ?? '')) {
         $error = 'Invalid request.';
     } else {
+        $priestClergyId = intval($_POST['priest_clergy_id'] ?? 0);
         $providerId = intval($_POST['provider_id'] ?? 0);
         $departmentId = intval($_POST['department_id'] ?? 0) ?: null;
         $appointmentDate = sanitize($_POST['appointment_date'] ?? '');
@@ -30,8 +37,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn()) {
         $reason = sanitize($_POST['reason'] ?? '');
         $description = sanitize($_POST['description'] ?? '');
 
+        // If priest selected, resolve their user_id as provider
+        if ($priestClergyId) {
+            $clergy = $db->fetch("SELECT user_id, full_name FROM clergy WHERE id = ?", [$priestClergyId]);
+            if ($clergy && $clergy['user_id']) {
+                $providerId = $clergy['user_id'];
+            } else {
+                // If clergy has no linked user, use first priest user as fallback
+                $priestUser = $db->fetch("SELECT id FROM users WHERE role = 'priest' AND is_active = 1 LIMIT 1");
+                $providerId = $priestUser ? $priestUser['id'] : 0;
+            }
+        }
+
         if (empty($providerId) || empty($appointmentDate) || empty($startTime) || empty($reason)) {
-            $error = 'Please fill in all required fields.';
+            $error = 'Please select a priest or staff member, and fill in all required fields.';
         } elseif (strtotime($appointmentDate) < strtotime('today')) {
             $error = 'Cannot book appointments in the past.';
         } else {
@@ -74,6 +93,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn()) {
                 ]);
 
                 logAudit('appointment_booked', 'appointment', null, null, json_encode(['ref' => $refNumber]));
+
+                // Send notification to the provider
+                $bookerName = sanitize($_SESSION['user_first'] ?? 'A parishioner');
+                sendNotification(
+                    'New Appointment Request',
+                    "{$bookerName} has booked an appointment for {$appointmentDate} ({$reason}). Ref: {$refNumber}",
+                    'info',
+                    '/holy-trinity/admin/appointments.php',
+                    $providerId
+                );
+                // Notify all priests
+                sendNotification(
+                    'New Appointment Request',
+                    "{$bookerName} has requested an appointment ({$reason}). Ref: {$refNumber}",
+                    'info',
+                    '/holy-trinity/admin/appointments.php',
+                    null, null, 'priest'
+                );
+
                 $success = "Appointment booked successfully! Your reference number is <strong>{$refNumber}</strong>. You will receive a confirmation once approved.";
             }
         }
@@ -134,26 +172,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn()) {
                             <input type="hidden" name="csrf_token" value="<?= generateCSRFToken() ?>">
 
                             <div class="form-group">
-                                <label><i class="fas fa-building"></i> Department <span class="required">*</span></label>
+                                <label><i class="fas fa-pray"></i> Which Priest Would You Like to Meet? <span class="required">*</span></label>
+                                <select name="priest_clergy_id" class="form-control" id="priestSelect">
+                                    <option value="">Select a priest</option>
+                                    <?php foreach ($clergyList as $cl): ?>
+                                        <option value="<?= $cl['clergy_id'] ?>" data-user-id="<?= $cl['user_id'] ?>">
+                                            <?= sanitize($cl['title'] . ' ' . $cl['full_name']) ?> &mdash; <?= sanitize($cl['position']) ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <div class="form-text">Choose the priest you wish to have your appointment with</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-building"></i> Department (optional)</label>
                                 <select name="department_id" class="form-control" id="departmentSelect">
-                                    <option value="">Select a department</option>
+                                    <option value="">General / No specific department</option>
                                     <?php foreach ($departments as $dept): ?>
                                         <option value="<?= $dept['id'] ?>"><?= sanitize($dept['name']) ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                                <div class="form-text">Select if your appointment relates to a specific department</div>
                             </div>
 
                             <div class="form-group">
-                                <label><i class="fas fa-user"></i> Meet With <span class="required">*</span></label>
-                                <select name="provider_id" class="form-control" required id="providerSelect">
-                                    <option value="">Select who you'd like to meet</option>
+                                <label><i class="fas fa-user"></i> Or Meet With Staff Member</label>
+                                <select name="provider_id" class="form-control" id="providerSelect">
+                                    <option value="">Select staff member (optional)</option>
                                     <?php foreach ($providers as $p): ?>
                                         <option value="<?= $p['id'] ?>" data-dept="<?= $p['department_id'] ?>">
                                             <?= sanitize($p['first_name'] . ' ' . $p['last_name']) ?>
-                                            <?php if ($p['department_name']): ?> (<?= sanitize($p['department_name']) ?>)<?php endif; ?>
+                                            (<?= ucfirst(str_replace('_', ' ', $p['role'])) ?>)
+                                            <?php if ($p['department_name']): ?> &mdash; <?= sanitize($p['department_name']) ?><?php endif; ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
+                                <div class="form-text">If not meeting a priest, select a department head or staff member</div>
                             </div>
 
                             <div class="form-group">

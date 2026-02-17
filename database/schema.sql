@@ -384,6 +384,49 @@ CREATE TABLE settings (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ============================================
+-- NOTIFICATIONS
+-- ============================================
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    department_id INT,
+    role_target VARCHAR(50),
+    title VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    type ENUM('info','success','warning','urgent','report') DEFAULT 'info',
+    link VARCHAR(500),
+    is_read TINYINT(1) DEFAULT 0,
+    created_by INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ============================================
+-- DEPARTMENT REPORTS (sent to Parish Priest)
+-- ============================================
+CREATE TABLE department_reports (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    department_id INT NOT NULL,
+    submitted_by INT NOT NULL,
+    report_title VARCHAR(255) NOT NULL,
+    report_content TEXT NOT NULL,
+    report_type ENUM('weekly','monthly','quarterly','annual','special') DEFAULT 'monthly',
+    report_period VARCHAR(100),
+    attachment_path VARCHAR(500),
+    status ENUM('draft','submitted','reviewed','acknowledged') DEFAULT 'submitted',
+    priest_notes TEXT,
+    reviewed_by INT,
+    reviewed_at DATETIME,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE CASCADE,
+    FOREIGN KEY (submitted_by) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (reviewed_by) REFERENCES users(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ============================================
 -- SEED DATA
 -- ============================================
 
