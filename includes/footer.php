@@ -41,8 +41,8 @@
                 <div class="footer-col">
                     <h4>Contact Us</h4>
                     <ul class="contact-info">
-                        <li><i class="fas fa-map-marker-alt"></i> Holy Trinity Parish, Kampala, Uganda</li>
-                        <li><i class="fas fa-phone"></i> +256-XXX-XXXXXX</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Holy Trinity Parish, Lusaka, Zambia</li>
+                        <li><i class="fas fa-phone"></i> +260-XXX-XXXXXX</li>
                         <li><i class="fas fa-envelope"></i> info@holytrinityparish.org</li>
                         <li><i class="fas fa-clock"></i> Office: Mon-Fri 8AM - 5PM</li>
                     </ul>

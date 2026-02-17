@@ -106,14 +106,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <i class="fas fa-location-dot" style="color:var(--gold); margin-top:0.2rem; width:20px; text-align:center;"></i>
                                 <div>
                                     <strong>Address</strong>
-                                    <p class="text-muted" style="margin:0;">Holy Trinity Parish<br>Kampala, Uganda</p>
+                                    <p class="text-muted" style="margin:0;">Holy Trinity Parish<br>Lusaka, Zambia</p>
                                 </div>
                             </div>
                             <div style="display:flex; gap:1rem;">
                                 <i class="fas fa-phone" style="color:var(--gold); margin-top:0.2rem; width:20px; text-align:center;"></i>
                                 <div>
                                     <strong>Phone</strong>
-                                    <p class="text-muted" style="margin:0;">+256-XXX-XXXXXX</p>
+                                    <p class="text-muted" style="margin:0;">+260-XXX-XXXXXX</p>
                                 </div>
                             </div>
                             <div style="display:flex; gap:1rem;">

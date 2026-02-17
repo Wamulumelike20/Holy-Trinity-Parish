@@ -117,7 +117,7 @@ $myMinistries = $db->fetchAll(
                 <div class="stat-card">
                     <div class="stat-icon green"><i class="fas fa-hand-holding-heart"></i></div>
                     <div class="stat-info">
-                        <h3>UGX <?= number_format($donationTotal) ?></h3>
+                        <h3>ZMW <?= number_format($donationTotal) ?></h3>
                         <p>Total Donations</p>
                     </div>
                 </div>
@@ -189,7 +189,7 @@ $myMinistries = $db->fetchAll(
                             <div style="padding:1rem 1.5rem; border-bottom:1px solid var(--light-gray);">
                                 <div style="display:flex; justify-content:space-between; align-items:center;">
                                     <div>
-                                        <strong style="font-size:0.95rem;">UGX <?= number_format($don['amount']) ?></strong>
+                                        <strong style="font-size:0.95rem;">ZMW <?= number_format($don['amount']) ?></strong>
                                         <div class="text-muted" style="font-size:0.8rem;">
                                             <?= sanitize($don['category_name'] ?? 'General') ?> &bull; <?= formatDate($don['donation_date']) ?>
                                         </div>

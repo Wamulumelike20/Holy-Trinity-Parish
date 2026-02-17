@@ -116,7 +116,7 @@ $totalSacraments = $db->fetch("SELECT COUNT(*) as cnt FROM sacramental_records")
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon green"><i class="fas fa-coins"></i></div>
-                    <div class="stat-info"><h3>UGX <?= number_format($totalDonations) ?></h3><p>Total Donations</p></div>
+                    <div class="stat-info"><h3>ZMW <?= number_format($totalDonations) ?></h3><p>Total Donations</p></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon gold"><i class="fas fa-calendar-check"></i></div>
@@ -144,7 +144,7 @@ $totalSacraments = $db->fetch("SELECT COUNT(*) as cnt FROM sacramental_records")
                                 <div>
                                     <div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-bottom:0.2rem;">
                                         <span><?= $dt['label'] ?></span>
-                                        <strong>UGX <?= number_format($dt['total']) ?> (<?= $dt['count'] ?>)</strong>
+                                        <strong>ZMW <?= number_format($dt['total']) ?> (<?= $dt['count'] ?>)</strong>
                                     </div>
                                     <div style="background:var(--light-gray); border-radius:50px; height:6px; overflow:hidden;">
                                         <div style="background:linear-gradient(90deg, var(--primary), var(--gold)); height:100%; width:<?= ($dt['total'] / $maxAmount) * 100 ?>%; border-radius:50px;"></div>
@@ -175,7 +175,7 @@ $totalSacraments = $db->fetch("SELECT COUNT(*) as cnt FROM sacramental_records")
                             <div style="margin-bottom:1rem;">
                                 <div style="display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:0.3rem;">
                                     <span><span style="display:inline-block; width:12px; height:12px; border-radius:3px; background:<?= $color ?>; margin-right:0.5rem;"></span><?= sanitize($dc['name']) ?></span>
-                                    <strong>UGX <?= number_format($dc['total']) ?> (<?= $pct ?>%)</strong>
+                                    <strong>ZMW <?= number_format($dc['total']) ?> (<?= $pct ?>%)</strong>
                                 </div>
                                 <div style="background:var(--light-gray); border-radius:50px; height:8px; overflow:hidden;">
                                     <div style="background:<?= $color ?>; height:100%; width:<?= $pct ?>%; border-radius:50px;"></div>

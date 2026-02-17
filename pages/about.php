@@ -27,7 +27,7 @@ $clergy = $db->fetchAll("SELECT * FROM clergy WHERE is_active = 1 ORDER BY displ
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:center;" class="grid-2">
                 <div>
                     <h3 style="color:var(--primary);">A Community Built on Faith</h3>
-                    <p>Holy Trinity Parish was established as a beacon of Catholic faith in the heart of Kampala. From its humble beginnings, the parish has grown into a vibrant community of believers united in their devotion to the Holy Trinity — Father, Son, and Holy Spirit.</p>
+                    <p>Holy Trinity Parish was established as a beacon of Catholic faith in the heart of Lusaka. From its humble beginnings, the parish has grown into a vibrant community of believers united in their devotion to the Holy Trinity — Father, Son, and Holy Spirit.</p>
                     <p>Over the decades, our parish has been a place of worship, learning, and service. We have witnessed countless baptisms, confirmations, marriages, and celebrations of the Eucharist that have strengthened the faith of our community.</p>
                     <p>Today, Holy Trinity Parish continues to be a spiritual home for thousands of families, offering a wide range of ministries, programs, and services that cater to the spiritual, social, and material needs of our parishioners and the wider community.</p>
                 </div>

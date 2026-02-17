@@ -86,15 +86,15 @@ $donorCount = $db->fetch("SELECT COUNT(DISTINCT COALESCE(user_id, donor_email)) 
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon green"><i class="fas fa-coins"></i></div>
-                    <div class="stat-info"><h3>UGX <?= number_format($totalAmount) ?></h3><p>Total Donations</p></div>
+                    <div class="stat-info"><h3>ZMW <?= number_format($totalAmount) ?></h3><p>Total Donations</p></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon blue"><i class="fas fa-calendar"></i></div>
-                    <div class="stat-info"><h3>UGX <?= number_format($monthlyAmount) ?></h3><p>This Month</p></div>
+                    <div class="stat-info"><h3>ZMW <?= number_format($monthlyAmount) ?></h3><p>This Month</p></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon gold"><i class="fas fa-sun"></i></div>
-                    <div class="stat-info"><h3>UGX <?= number_format($todayAmount) ?></h3><p>Today</p></div>
+                    <div class="stat-info"><h3>ZMW <?= number_format($todayAmount) ?></h3><p>Today</p></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon purple"><i class="fas fa-users"></i></div>
@@ -171,7 +171,7 @@ $donorCount = $db->fetch("SELECT COUNT(DISTINCT COALESCE(user_id, donor_email)) 
                                         <?= sanitize($don['donor_name'] ?? 'Anonymous') ?>
                                         <?php if ($don['donor_email']): ?><br><small class="text-muted"><?= sanitize($don['donor_email']) ?></small><?php endif; ?>
                                     </td>
-                                    <td><strong>UGX <?= number_format($don['amount']) ?></strong></td>
+                                    <td><strong>ZMW <?= number_format($don['amount']) ?></strong></td>
                                     <td><?= sanitize($don['category_name'] ?? 'General') ?></td>
                                     <td><?= ucfirst(str_replace('_', ' ', $don['payment_method'])) ?></td>
                                     <td><?= formatDate($don['donation_date']) ?></td>

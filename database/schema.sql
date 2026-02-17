@@ -250,7 +250,7 @@ CREATE TABLE donations (
     donor_phone VARCHAR(20),
     category_id INT,
     amount DECIMAL(12,2) NOT NULL,
-    currency VARCHAR(10) DEFAULT 'UGX',
+    currency VARCHAR(10) DEFAULT 'ZMW',
     payment_method ENUM('cash','mobile_money','bank_transfer','card','online') DEFAULT 'online',
     payment_status ENUM('pending','completed','failed','refunded') DEFAULT 'pending',
     payment_reference VARCHAR(255),
@@ -435,15 +435,15 @@ INSERT INTO settings (setting_key, setting_value, setting_group) VALUES
 ('site_name', 'Holy Trinity Parish', 'general'),
 ('site_tagline', 'A Community of Faith, Hope & Love', 'general'),
 ('parish_email', 'info@holytrinityparish.org', 'contact'),
-('parish_phone', '+256-XXX-XXXXXX', 'contact'),
-('parish_address', 'Holy Trinity Parish, Kampala, Uganda', 'contact'),
-('currency', 'UGX', 'finance'),
-('timezone', 'Africa/Kampala', 'general'),
+('parish_phone', '+260-XXX-XXXXXX', 'contact'),
+('parish_address', 'Holy Trinity Parish, Lusaka, Zambia', 'contact'),
+('currency', 'ZMW', 'finance'),
+('timezone', 'Africa/Lusaka', 'general'),
 ('maintenance_mode', '0', 'system');
 
 -- Default Admin User (password: Admin@123)
 INSERT INTO users (first_name, last_name, email, phone, password_hash, role, is_active, email_verified) VALUES
-('System', 'Administrator', 'admin@holytrinityparish.org', '+256700000000', '$2y$12$2Ck8Ra0uitw63YLhM9p1HOixLnUfUEpR2VMhO/FmbyqztttVcL5.6', 'super_admin', 1, 1);
+('System', 'Administrator', 'admin@holytrinityparish.org', '+260700000000', '$2y$12$2Ck8Ra0uitw63YLhM9p1HOixLnUfUEpR2VMhO/FmbyqztttVcL5.6', 'super_admin', 1, 1);
 
 -- Default Departments
 INSERT INTO departments (name, slug, description) VALUES
@@ -467,7 +467,7 @@ INSERT INTO donation_categories (name, description) VALUES
 INSERT INTO mass_schedules (day_of_week, time, mass_type, language) VALUES
 ('Sunday', '07:00:00', 'Holy Mass', 'English'),
 ('Sunday', '09:00:00', 'Holy Mass', 'English'),
-('Sunday', '11:00:00', 'Holy Mass', 'Luganda'),
+('Sunday', '11:00:00', 'Holy Mass', 'Bemba'),
 ('Sunday', '17:00:00', 'Evening Mass', 'English'),
 ('Monday', '07:00:00', 'Weekday Mass', 'English'),
 ('Tuesday', '07:00:00', 'Weekday Mass', 'English'),

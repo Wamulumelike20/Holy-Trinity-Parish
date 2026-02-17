@@ -62,15 +62,15 @@ $thisMonth = $db->fetch("SELECT COALESCE(SUM(amount),0) as total FROM donations 
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon green"><i class="fas fa-coins"></i></div>
-                    <div class="stat-info"><h3>UGX <?= number_format($totalDonated) ?></h3><p>Total Donated</p></div>
+                    <div class="stat-info"><h3>ZMW <?= number_format($totalDonated) ?></h3><p>Total Donated</p></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon blue"><i class="fas fa-calendar"></i></div>
-                    <div class="stat-info"><h3>UGX <?= number_format($thisYear) ?></h3><p>This Year</p></div>
+                    <div class="stat-info"><h3>ZMW <?= number_format($thisYear) ?></h3><p>This Year</p></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon gold"><i class="fas fa-calendar-day"></i></div>
-                    <div class="stat-info"><h3>UGX <?= number_format($thisMonth) ?></h3><p>This Month</p></div>
+                    <div class="stat-info"><h3>ZMW <?= number_format($thisMonth) ?></h3><p>This Month</p></div>
                 </div>
             </div>
 
@@ -102,7 +102,7 @@ $thisMonth = $db->fetch("SELECT COALESCE(SUM(amount),0) as total FROM donations 
                                 <?php foreach ($donations as $don): ?>
                                 <tr>
                                     <td><code style="font-size:0.8rem;"><?= $don['transaction_ref'] ?></code></td>
-                                    <td><strong>UGX <?= number_format($don['amount']) ?></strong></td>
+                                    <td><strong>ZMW <?= number_format($don['amount']) ?></strong></td>
                                     <td><?= sanitize($don['category_name'] ?? 'General') ?></td>
                                     <td><?= ucfirst(str_replace('_', ' ', $don['payment_method'])) ?></td>
                                     <td><?= formatDate($don['donation_date']) ?></td>

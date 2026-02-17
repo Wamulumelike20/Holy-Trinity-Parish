@@ -18,7 +18,7 @@
     <div class="top-bar">
         <div class="container top-bar-inner">
             <div class="top-bar-left">
-                <span><i class="fas fa-phone"></i> +256-XXX-XXXXXX</span>
+                <span><i class="fas fa-phone"></i> +260-XXX-XXXXXX</span>
                 <span><i class="fas fa-envelope"></i> info@holytrinityparish.org</span>
             </div>
             <div class="top-bar-right">

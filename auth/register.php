@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <div class="form-group">
                     <label><i class="fas fa-phone"></i> Phone Number</label>
-                    <input type="tel" name="phone" class="form-control" placeholder="+256-XXX-XXXXXXX" value="<?= sanitize($old['phone'] ?? '') ?>" data-validate-phone>
+                    <input type="tel" name="phone" class="form-control" placeholder="+260-XXX-XXXXXXX" value="<?= sanitize($old['phone'] ?? '') ?>" data-validate-phone>
                 </div>
 
                 <div class="form-row">

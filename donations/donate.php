@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'donor_phone' => $donorPhone,
                 'category_id' => $categoryId,
                 'amount' => $amount,
-                'currency' => 'UGX',
+                'currency' => 'ZMW',
                 'payment_method' => $paymentMethod,
                 'payment_status' => 'completed',
                 'donation_date' => date('Y-m-d'),
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Quick Amount Selection -->
                         <div class="form-group">
-                            <label><i class="fas fa-money-bill-wave"></i> Select Amount (UGX)</label>
+                            <label><i class="fas fa-money-bill-wave"></i> Select Amount (ZMW)</label>
                             <div class="donation-amounts">
                                 <button type="button" class="amount-btn" data-amount="10000">10,000</button>
                                 <button type="button" class="amount-btn" data-amount="20000">20,000</button>
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="form-group">
                             <label>Or Enter Custom Amount <span class="required">*</span></label>
-                            <input type="number" name="amount" id="donationAmount" class="form-control" placeholder="Enter amount in UGX" min="1000" required>
+                            <input type="number" name="amount" id="donationAmount" class="form-control" placeholder="Enter amount in ZMW" min="1000" required>
                         </div>
 
                         <div class="form-group">
@@ -198,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <p><strong>Bank:</strong> Centenary Bank</p>
                         <p><strong>Account Name:</strong> Holy Trinity Parish</p>
                         <p><strong>Account Number:</strong> XXXX-XXXX-XXXX</p>
-                        <p><strong>Branch:</strong> Kampala Main Branch</p>
+                        <p><strong>Branch:</strong> Lusaka Main Branch</p>
                         <hr style="border-color:var(--light-gray);">
                         <p><strong>Mobile Money:</strong></p>
                         <p>MTN: 0770-XXX-XXX</p>

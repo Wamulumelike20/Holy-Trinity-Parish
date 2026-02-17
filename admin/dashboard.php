@@ -151,7 +151,7 @@ $donationByCategory = $db->fetchAll(
                 <div class="stat-card">
                     <div class="stat-icon green"><i class="fas fa-hand-holding-heart"></i></div>
                     <div class="stat-info">
-                        <h3>UGX <?= number_format($totalDonations) ?></h3>
+                        <h3>ZMW <?= number_format($totalDonations) ?></h3>
                         <p>This Month's Donations</p>
                     </div>
                 </div>
@@ -246,7 +246,7 @@ $donationByCategory = $db->fetchAll(
                                     <?php foreach (array_slice($recentDonations, 0, 5) as $don): ?>
                                     <tr>
                                         <td><?= sanitize($don['donor_name'] ?? 'Anonymous') ?></td>
-                                        <td><strong>UGX <?= number_format($don['amount']) ?></strong></td>
+                                        <td><strong>ZMW <?= number_format($don['amount']) ?></strong></td>
                                         <td><?= sanitize($don['category_name'] ?? 'General') ?></td>
                                         <td><?= formatDate($don['donation_date'], 'M d') ?></td>
                                         <td>
@@ -282,7 +282,7 @@ $donationByCategory = $db->fetchAll(
                             <div style="margin-bottom:1rem;">
                                 <div style="display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:0.3rem;">
                                     <span><?= sanitize($dc['name']) ?></span>
-                                    <strong>UGX <?= number_format($dc['total']) ?></strong>
+                                    <strong>ZMW <?= number_format($dc['total']) ?></strong>
                                 </div>
                                 <div style="background:var(--light-gray); border-radius:50px; height:8px; overflow:hidden;">
                                     <div style="background:var(--gold); height:100%; width:<?= $percentage ?>%; border-radius:50px; transition:width 1s ease;"></div>
