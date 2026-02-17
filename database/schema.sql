@@ -436,7 +436,7 @@ INSERT INTO settings (setting_key, setting_value, setting_group) VALUES
 ('site_tagline', 'A Community of Faith, Hope & Love', 'general'),
 ('parish_email', 'info@holytrinityparish.org', 'contact'),
 ('parish_phone', '+260-XXX-XXXXXX', 'contact'),
-('parish_address', 'Holy Trinity Parish, Lusaka, Zambia', 'contact'),
+('parish_address', 'Holy Trinity Parish, Kabwe, Zambia', 'contact'),
 ('currency', 'ZMW', 'finance'),
 ('timezone', 'Africa/Lusaka', 'general'),
 ('maintenance_mode', '0', 'system');
@@ -482,9 +482,9 @@ INSERT INTO mass_schedules (day_of_week, time, mass_type, language) VALUES
 
 -- Sample Clergy
 INSERT INTO clergy (title, full_name, position, bio, display_order) VALUES
-('Rev. Fr.', 'John Mukasa', 'Parish Priest', 'Fr. John Mukasa has served as Parish Priest of Holy Trinity Parish since 2020. He holds a Doctorate in Canon Law and is passionate about building a vibrant faith community.', 1),
-('Rev. Fr.', 'Peter Ssemakula', 'Assistant Parish Priest', 'Fr. Peter Ssemakula joined Holy Trinity Parish in 2022. He oversees the youth ministry and catechetical programs.', 2),
-('Deacon', 'Joseph Kato', 'Permanent Deacon', 'Deacon Joseph Kato was ordained in 2018 and serves the parish through liturgical ministry and charitable works.', 3);
+('Rev. Fr.', 'Francis Mulenga', 'Parish Priest', 'Fr. Francis Mulenga has served as Parish Priest of Holy Trinity Parish since 2020. He holds a Doctorate in Canon Law and is passionate about building a vibrant faith community.', 1),
+('Rev. Fr.', 'Patrick Banda', 'Assistant Parish Priest', 'Fr. Patrick Banda joined Holy Trinity Parish in 2022. He oversees the youth ministry and catechetical programs.', 2),
+('Deacon', 'Joseph Tembo', 'Permanent Deacon', 'Deacon Joseph Tembo was ordained in 2018 and serves the parish through liturgical ministry and charitable works.', 3);
 
 -- Sample Ministries
 INSERT INTO ministries (name, description, meeting_schedule) VALUES

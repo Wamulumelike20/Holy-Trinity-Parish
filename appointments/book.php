@@ -4,20 +4,45 @@ require_once __DIR__ . '/../includes/header.php';
 
 $db = Database::getInstance();
 
-// Fetch clergy (priests) for the "Which priest" dropdown
+// Fetch clergy (priests) for the dropdown
 $clergyList = $db->fetchAll("
     SELECT c.id as clergy_id, c.title, c.full_name, c.position, c.user_id
     FROM clergy c WHERE c.is_active = 1 ORDER BY c.display_order, c.full_name
 ");
 
-// Fetch available providers (priests and department heads)
+// Fetch available providers (priests, department heads, admins)
 $providers = $db->fetchAll("
     SELECT u.id, u.first_name, u.last_name, u.role, d.name as department_name, d.id as department_id
     FROM users u
     LEFT JOIN departments d ON d.head_user_id = u.id
-    WHERE u.role IN ('priest', 'department_head', 'admin') AND u.is_active = 1
-    ORDER BY u.role, u.first_name
+    WHERE u.role IN ('priest', 'department_head', 'admin', 'super_admin') AND u.is_active = 1
+    ORDER BY FIELD(u.role, 'priest', 'super_admin', 'admin', 'department_head'), u.first_name
 ");
+
+// Build combined meet-with options
+$meetOptions = [];
+// First: clergy priests
+foreach ($clergyList as $cl) {
+    $meetOptions[] = [
+        'value' => 'clergy_' . $cl['clergy_id'],
+        'label' => $cl['title'] . ' ' . $cl['full_name'] . ' — ' . $cl['position'],
+        'group' => 'Priests'
+    ];
+}
+// Then: users with priest role not already in clergy
+$clergyUserIds = array_filter(array_column($clergyList, 'user_id'));
+foreach ($providers as $p) {
+    if (in_array($p['id'], $clergyUserIds)) continue;
+    $roleLabel = ucfirst(str_replace('_', ' ', $p['role']));
+    $group = in_array($p['role'], ['priest', 'super_admin']) ? 'Priests & Administrators' : 'Department Heads & Staff';
+    $label = $p['first_name'] . ' ' . $p['last_name'] . ' (' . $roleLabel . ')';
+    if ($p['department_name']) $label .= ' — ' . $p['department_name'];
+    $meetOptions[] = [
+        'value' => 'user_' . $p['id'],
+        'label' => $label,
+        'group' => $group
+    ];
+}
 
 // Fetch departments for booking
 $departments = $db->fetchAll("SELECT * FROM departments WHERE is_active = 1 ORDER BY name");
@@ -29,28 +54,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn()) {
     if (!verifyCSRFToken($_POST['csrf_token'] ?? '')) {
         $error = 'Invalid request.';
     } else {
-        $priestClergyId = intval($_POST['priest_clergy_id'] ?? 0);
-        $providerId = intval($_POST['provider_id'] ?? 0);
+        $meetWith = sanitize($_POST['meet_with'] ?? '');
         $departmentId = intval($_POST['department_id'] ?? 0) ?: null;
         $appointmentDate = sanitize($_POST['appointment_date'] ?? '');
         $startTime = sanitize($_POST['start_time'] ?? '');
         $reason = sanitize($_POST['reason'] ?? '');
         $description = sanitize($_POST['description'] ?? '');
 
-        // If priest selected, resolve their user_id as provider
-        if ($priestClergyId) {
-            $clergy = $db->fetch("SELECT user_id, full_name FROM clergy WHERE id = ?", [$priestClergyId]);
+        // Resolve meet_with to a provider_id
+        $providerId = 0;
+        if (str_starts_with($meetWith, 'clergy_')) {
+            $clergyId = intval(substr($meetWith, 7));
+            $clergy = $db->fetch("SELECT user_id, full_name FROM clergy WHERE id = ?", [$clergyId]);
             if ($clergy && $clergy['user_id']) {
                 $providerId = $clergy['user_id'];
             } else {
-                // If clergy has no linked user, use first priest user as fallback
-                $priestUser = $db->fetch("SELECT id FROM users WHERE role = 'priest' AND is_active = 1 LIMIT 1");
+                $priestUser = $db->fetch("SELECT id FROM users WHERE role IN ('priest','super_admin') AND is_active = 1 LIMIT 1");
                 $providerId = $priestUser ? $priestUser['id'] : 0;
             }
+        } elseif (str_starts_with($meetWith, 'user_')) {
+            $providerId = intval(substr($meetWith, 5));
         }
 
         if (empty($providerId) || empty($appointmentDate) || empty($startTime) || empty($reason)) {
-            $error = 'Please select a priest or staff member, and fill in all required fields.';
+            $error = 'Please select who to meet and fill in all required fields.';
         } elseif (strtotime($appointmentDate) < strtotime('today')) {
             $error = 'Cannot book appointments in the past.';
         } else {
@@ -172,16 +199,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn()) {
                             <input type="hidden" name="csrf_token" value="<?= generateCSRFToken() ?>">
 
                             <div class="form-group">
-                                <label><i class="fas fa-pray"></i> Which Priest Would You Like to Meet? <span class="required">*</span></label>
-                                <select name="priest_clergy_id" class="form-control" id="priestSelect">
-                                    <option value="">Select a priest</option>
-                                    <?php foreach ($clergyList as $cl): ?>
-                                        <option value="<?= $cl['clergy_id'] ?>" data-user-id="<?= $cl['user_id'] ?>">
-                                            <?= sanitize($cl['title'] . ' ' . $cl['full_name']) ?> &mdash; <?= sanitize($cl['position']) ?>
-                                        </option>
+                                <label><i class="fas fa-user-tie"></i> Meet With <span class="required">*</span></label>
+                                <select name="meet_with" class="form-control" id="meetWithSelect" required>
+                                    <option value="">Select who you'd like to meet</option>
+                                    <?php
+                                    $currentGroup = '';
+                                    foreach ($meetOptions as $opt):
+                                        if ($opt['group'] !== $currentGroup):
+                                            if ($currentGroup) echo '</optgroup>';
+                                            $currentGroup = $opt['group'];
+                                            echo '<optgroup label="' . sanitize($currentGroup) . '">';
+                                        endif;
+                                    ?>
+                                        <option value="<?= $opt['value'] ?>"><?= sanitize($opt['label']) ?></option>
                                     <?php endforeach; ?>
+                                    <?php if ($currentGroup) echo '</optgroup>'; ?>
                                 </select>
-                                <div class="form-text">Choose the priest you wish to have your appointment with</div>
+                                <div class="form-text">Choose a priest, administrator, or department head</div>
                             </div>
 
                             <div class="form-group">
@@ -193,21 +227,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn()) {
                                     <?php endforeach; ?>
                                 </select>
                                 <div class="form-text">Select if your appointment relates to a specific department</div>
-                            </div>
-
-                            <div class="form-group">
-                                <label><i class="fas fa-user"></i> Or Meet With Staff Member</label>
-                                <select name="provider_id" class="form-control" id="providerSelect">
-                                    <option value="">Select staff member (optional)</option>
-                                    <?php foreach ($providers as $p): ?>
-                                        <option value="<?= $p['id'] ?>" data-dept="<?= $p['department_id'] ?>">
-                                            <?= sanitize($p['first_name'] . ' ' . $p['last_name']) ?>
-                                            (<?= ucfirst(str_replace('_', ' ', $p['role'])) ?>)
-                                            <?php if ($p['department_name']): ?> &mdash; <?= sanitize($p['department_name']) ?><?php endif; ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <div class="form-text">If not meeting a priest, select a department head or staff member</div>
                             </div>
 
                             <div class="form-group">

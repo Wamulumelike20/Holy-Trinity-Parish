@@ -198,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <p><strong>Bank:</strong> Centenary Bank</p>
                         <p><strong>Account Name:</strong> Holy Trinity Parish</p>
                         <p><strong>Account Number:</strong> XXXX-XXXX-XXXX</p>
-                        <p><strong>Branch:</strong> Lusaka Main Branch</p>
+                        <p><strong>Branch:</strong> Kabwe Main Branch</p>
                         <hr style="border-color:var(--light-gray);">
                         <p><strong>Mobile Money:</strong></p>
                         <p>MTN: 0770-XXX-XXX</p>

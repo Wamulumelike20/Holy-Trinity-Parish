@@ -224,7 +224,7 @@ $certTitle = $typeLabels[$record['record_type']] ?? 'Sacramental Certificate';
         <div class="cert-header">
             <div class="cert-cross">&#10013;</div>
             <div class="cert-parish">Holy Trinity Parish</div>
-            <div class="cert-diocese">Archdiocese of Lusaka &bull; Zambia</div>
+            <div class="cert-diocese">Kabwe Diocese &bull; Zambia</div>
         </div>
 
         <div class="cert-title"><?= $certTitle ?></div>
