@@ -38,28 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 setFlash('success', 'Welcome back, ' . $user['first_name'] . '!');
 
-                // Redirect based on role
-                if (in_array($user['role'], ['admin', 'super_admin'])) {
-                    redirect('/holy-trinity/admin/dashboard.php');
-                } elseif ($user['role'] === 'priest') {
-                    redirect('/holy-trinity/priest/dashboard.php');
-                } elseif ($user['role'] === 'department_head') {
-                    // Find their department and redirect to its dashboard
-                    $userDept = $db->fetch("SELECT d.slug FROM departments d WHERE d.head_user_id = ? AND d.is_active = 1 LIMIT 1", [$user['id']]);
-                    if (!$userDept) {
-                        $userDept = $db->fetch(
-                            "SELECT d.slug FROM departments d INNER JOIN department_members dm ON dm.department_id = d.id WHERE dm.user_id = ? AND d.is_active = 1 LIMIT 1",
-                            [$user['id']]
-                        );
-                    }
-                    if ($userDept) {
-                        redirect('/holy-trinity/department/dashboards/' . $userDept['slug'] . '.php');
-                    } else {
-                        redirect('/holy-trinity/department/dashboard.php');
-                    }
-                } else {
-                    redirect('/holy-trinity/portal/dashboard.php');
-                }
+                // All users go to the unified app dashboard
+                // Each role-specific dashboard is privately accessible from there
+                redirect('/holy-trinity/app/dashboard.php');
             } else {
                 $error = 'Invalid email or password.';
                 logAudit('login_failed', 'user', null, null, json_encode(['email' => $email]));

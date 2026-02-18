@@ -234,3 +234,69 @@ function isDepartmentHead($deptId = null) {
     }
     return $_SESSION['user_role'] === 'department_head';
 }
+
+function isParishExecutive() {
+    return isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'parish_executive';
+}
+
+function isLiturgicalCoordinator() {
+    return isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'liturgical_coordinator';
+}
+
+function isStaff() {
+    return isset($_SESSION['user_role']) && in_array($_SESSION['user_role'], ['guard', 'house_helper', 'general_worker']);
+}
+
+function isLeadership() {
+    return isset($_SESSION['user_role']) && in_array($_SESSION['user_role'], ['priest', 'super_admin', 'admin', 'parish_executive']);
+}
+
+function requireStaff() {
+    requireLogin();
+    if (!isStaff()) {
+        setFlash('error', 'Staff access only.');
+        redirect('/holy-trinity/index.php');
+    }
+}
+
+function requireLeadership() {
+    requireLogin();
+    if (!isLeadership()) {
+        setFlash('error', 'You do not have permission to access this page.');
+        redirect('/holy-trinity/index.php');
+    }
+}
+
+function requireParishExecutive() {
+    requireLogin();
+    if (!isParishExecutive() && !isPriest() && !isAdmin()) {
+        setFlash('error', 'Parish Executive access required.');
+        redirect('/holy-trinity/index.php');
+    }
+}
+
+function getStaffProfile($userId = null) {
+    $userId = $userId ?? ($_SESSION['user_id'] ?? 0);
+    $db = Database::getInstance();
+    return $db->fetch("SELECT sp.*, u.first_name, u.last_name, u.email, u.phone, u.role, u.profile_photo
+                       FROM staff_profiles sp JOIN users u ON sp.user_id = u.id
+                       WHERE sp.user_id = ?", [$userId]);
+}
+
+function getUserSCCs($userId = null) {
+    $userId = $userId ?? ($_SESSION['user_id'] ?? 0);
+    $db = Database::getInstance();
+    return $db->fetchAll(
+        "SELECT s.*, sm.role as member_role FROM small_christian_communities s
+         JOIN scc_members sm ON sm.scc_id = s.id WHERE sm.user_id = ? AND s.is_active = 1", [$userId]
+    );
+}
+
+function getUserLayGroups($userId = null) {
+    $userId = $userId ?? ($_SESSION['user_id'] ?? 0);
+    $db = Database::getInstance();
+    return $db->fetchAll(
+        "SELECT g.*, gm.role as member_role FROM lay_groups g
+         JOIN lay_group_members gm ON gm.group_id = g.id WHERE gm.user_id = ? AND g.is_active = 1", [$userId]
+    );
+}

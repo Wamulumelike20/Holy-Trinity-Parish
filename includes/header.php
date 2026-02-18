@@ -88,11 +88,19 @@
                     <ul class="dropdown-menu">
                         <li><a href="/holy-trinity/pages/dashboard.php"><i class="fas fa-globe"></i> Parish Dashboard</a></li>
                         <li><a href="/holy-trinity/department/login.php"><i class="fas fa-building"></i> Department Login</a></li>
+                        <li><a href="/holy-trinity/staff/login.php"><i class="fas fa-shield-halved"></i> Staff Login</a></li>
                         <?php if (isLoggedIn()): ?>
                             <li><a href="/holy-trinity/portal/dashboard.php"><i class="fas fa-user"></i> My Portal</a></li>
+                            <li><a href="/holy-trinity/reports/submit.php"><i class="fas fa-file-alt"></i> Submit Reports</a></li>
                             <?php if (in_array($_SESSION['user_role'] ?? '', ['priest', 'super_admin', 'admin'])): ?>
                                 <li><a href="/holy-trinity/priest/dashboard.php"><i class="fas fa-church"></i> Priest Dashboard</a></li>
                                 <li><a href="/holy-trinity/admin/dashboard.php"><i class="fas fa-tachometer-alt"></i> Admin Dashboard</a></li>
+                            <?php endif; ?>
+                            <?php if (in_array($_SESSION['user_role'] ?? '', ['parish_executive', 'priest', 'super_admin', 'admin'])): ?>
+                                <li><a href="/holy-trinity/executive/dashboard.php"><i class="fas fa-user-tie"></i> Executive Dashboard</a></li>
+                            <?php endif; ?>
+                            <?php if (in_array($_SESSION['user_role'] ?? '', ['liturgical_coordinator', 'priest', 'super_admin', 'admin'])): ?>
+                                <li><a href="/holy-trinity/liturgical/dashboard.php"><i class="fas fa-book-bible"></i> Liturgical Dashboard</a></li>
                             <?php endif; ?>
                         <?php endif; ?>
                     </ul>

@@ -2,7 +2,7 @@
     "name": "Holy Trinity Parish - Kabwe",
     "short_name": "HTP Kabwe",
     "description": "Holy Trinity Parish Church Management System - Kabwe Diocese, Zambia. A Community of Faith, Hope & Love.",
-    "start_url": "/holy-trinity/index.php",
+    "start_url": "/holy-trinity/app/dashboard.php",
     "scope": "/holy-trinity/",
     "display": "standalone",
     "orientation": "any",

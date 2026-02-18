@@ -3,7 +3,7 @@ require_once __DIR__ . '/../config/app.php';
 
 // If already logged in as department head, redirect to department dashboard
 if (isLoggedIn() && in_array($_SESSION['user_role'] ?? '', ['department_head', 'priest', 'super_admin', 'admin'])) {
-    redirect('/holy-trinity/department/dashboard.php');
+    redirect('/holy-trinity/app/dashboard.php');
 }
 
 $db = Database::getInstance();
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         logAudit('department_login', 'user', $user['id'], null, json_encode(['department' => $dept['name']]));
                         setFlash('success', 'Welcome to ' . $dept['name'] . ' Dashboard, ' . $user['first_name'] . '!');
 
-                        redirect('/holy-trinity/department/dashboards/' . $dept['slug'] . '.php');
+                        redirect('/holy-trinity/app/dashboard.php');
                     }
                 } else {
                     $error = 'Invalid email or password.';

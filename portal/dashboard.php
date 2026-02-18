@@ -60,9 +60,13 @@ $myMinistries = $db->fetchAll(
                 <a href="/holy-trinity/portal/profile.php"><i class="fas fa-user"></i> My Profile</a>
                 <a href="/holy-trinity/portal/appointments.php"><i class="fas fa-calendar-check"></i> My Appointments</a>
                 <a href="/holy-trinity/portal/donations.php"><i class="fas fa-hand-holding-heart"></i> My Donations</a>
-                <div class="sidebar-section">Faith Life</div>
+                <div class="sidebar-section">My Records</div>
                 <a href="/holy-trinity/portal/sacraments.php"><i class="fas fa-dove"></i> Sacramental Records</a>
+                <a href="/holy-trinity/portal/donations.php"><i class="fas fa-hand-holding-heart"></i> Donation History</a>
+                <a href="/holy-trinity/portal/appointments.php"><i class="fas fa-calendar-check"></i> Appointment History</a>
+                <div class="sidebar-section">Faith Life</div>
                 <a href="/holy-trinity/portal/ministries.php"><i class="fas fa-people-group"></i> My Ministries</a>
+                <a href="/holy-trinity/reports/submit.php"><i class="fas fa-file-alt"></i> Submit Reports</a>
                 <div class="sidebar-section">Quick Actions</div>
                 <a href="/holy-trinity/appointments/book.php"><i class="fas fa-calendar-plus"></i> Book Appointment</a>
                 <a href="/holy-trinity/donations/donate.php"><i class="fas fa-donate"></i> Make Donation</a>
