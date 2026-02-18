@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline | Holy Trinity Parish</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #fff;
+            padding: 2rem;
+        }
+        .offline-container {
+            text-align: center;
+            max-width: 480px;
+        }
+        .offline-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .offline-icon svg {
+            width: 60px;
+            height: 60px;
+            fill: #d4a843;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #d4a843;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+        }
+        .message {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.8);
+        }
+        .cross {
+            font-size: 2rem;
+            color: #d4a843;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .retry-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            background: linear-gradient(135deg, #d4a843, #b8922e);
+            color: #0f172a;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .retry-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212,168,67,0.3);
+        }
+        .prayer {
+            margin-top: 2.5rem;
+            font-style: italic;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        .cached-links {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        .cached-link {
+            padding: 0.4rem 0.8rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+        .cached-link:hover {
+            background: rgba(212,168,67,0.2);
+            color: #d4a843;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="none"/>
+                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4c-1.48 0-2.85.43-4.01 1.17l1.46 1.46C10.21 6.23 11.08 6 12 6c3.04 0 5.5 2.46 5.5 5.5v.5H19c1.66 0 3 1.34 3 3 0 1.13-.64 2.11-1.56 2.62l1.45 1.45C23.16 18.16 24 16.68 24 15c0-2.64-2.05-4.78-4.65-4.96zM3 5.27l2.75 2.74C2.56 8.15 0 10.77 0 14c0 3.31 2.69 6 6 6h11.73l2 2 1.27-1.27L4.27 4 3 5.27zM7.73 10l8 8H6c-2.21 0-4-1.79-4-4s1.79-4 4-4h1.73z"/>
+            </svg>
+        </div>
+
+        <span class="cross">&#10013;</span>
+        <h1>You're Offline</h1>
+        <p class="subtitle">Holy Trinity Parish - Kabwe</p>
+
+        <div class="message">
+            It looks like you've lost your internet connection. Don't worry — some pages you've visited before may still be available. Please check your connection and try again.
+        </div>
+
+        <button class="retry-btn" onclick="window.location.reload()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+            Try Again
+        </button>
+
+        <div class="cached-links" id="cachedLinks"></div>
+
+        <p class="prayer">
+            "The Lord is my shepherd; I shall not want." — Psalm 23:1
+        </p>
+    </div>
+
+    <script>
+        // Show cached pages the user can still visit
+        if ('caches' in window) {
+            caches.open('htp-kabwe-v1').then(cache => {
+                cache.keys().then(requests => {
+                    const container = document.getElementById('cachedLinks');
+                    const pages = requests.filter(r => r.url.includes('.php'));
+                    if (pages.length > 0) {
+                        const title = document.createElement('p');
+                        title.style.cssText = 'width:100%; color:rgba(255,255,255,0.5); font-size:0.8rem; margin-bottom:0.25rem;';
+                        title.textContent = 'Cached pages available:';
+                        container.appendChild(title);
+                        pages.forEach(req => {
+                            const url = new URL(req.url);
+                            const name = url.pathname.split('/').pop().replace('.php', '').replace(/-/g, ' ');
+                            const a = document.createElement('a');
+                            a.href = req.url;
+                            a.className = 'cached-link';
+                            a.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+                            container.appendChild(a);
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

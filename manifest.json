@@ -1,0 +1,110 @@
+{
+    "name": "Holy Trinity Parish - Kabwe",
+    "short_name": "HTP Kabwe",
+    "description": "Holy Trinity Parish Church Management System - Kabwe Diocese, Zambia. A Community of Faith, Hope & Love.",
+    "start_url": "/holy-trinity/index.php",
+    "scope": "/holy-trinity/",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#0f172a",
+    "theme_color": "#1a365d",
+    "lang": "en",
+    "dir": "ltr",
+    "categories": ["lifestyle", "social", "utilities"],
+    "icons": [
+        {
+            "src": "/holy-trinity/assets/icons/icon-72x72.png",
+            "sizes": "72x72",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/holy-trinity/assets/icons/icon-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/holy-trinity/assets/icons/icon-128x128.png",
+            "sizes": "128x128",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/holy-trinity/assets/icons/icon-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/holy-trinity/assets/icons/icon-152x152.png",
+            "sizes": "152x152",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/holy-trinity/assets/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/holy-trinity/assets/icons/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/holy-trinity/assets/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/holy-trinity/assets/icons/screenshot-wide.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "Holy Trinity Parish Home"
+        },
+        {
+            "src": "/holy-trinity/assets/icons/screenshot-mobile.png",
+            "sizes": "390x844",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Holy Trinity Parish Mobile"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Book Appointment",
+            "short_name": "Appointments",
+            "description": "Book an appointment with a priest",
+            "url": "/holy-trinity/appointments/book.php",
+            "icons": [{"src": "/holy-trinity/assets/icons/icon-96x96.png", "sizes": "96x96"}]
+        },
+        {
+            "name": "Make Donation",
+            "short_name": "Donate",
+            "description": "Make a donation to the parish",
+            "url": "/holy-trinity/donations/donate.php",
+            "icons": [{"src": "/holy-trinity/assets/icons/icon-96x96.png", "sizes": "96x96"}]
+        },
+        {
+            "name": "My Portal",
+            "short_name": "Portal",
+            "description": "Access your parish portal",
+            "url": "/holy-trinity/portal/dashboard.php",
+            "icons": [{"src": "/holy-trinity/assets/icons/icon-96x96.png", "sizes": "96x96"}]
+        },
+        {
+            "name": "Department Login",
+            "short_name": "Departments",
+            "description": "Department admin login",
+            "url": "/holy-trinity/department/login.php",
+            "icons": [{"src": "/holy-trinity/assets/icons/icon-96x96.png", "sizes": "96x96"}]
+        }
+    ]
+}

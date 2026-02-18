@@ -53,6 +53,7 @@ $users = $db->fetchAll("SELECT * FROM users WHERE {$where} ORDER BY created_at D
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include_once __DIR__ . "/../includes/pwa-head.php"; ?>
     <title><?= $pageTitle ?> | <?= APP_NAME ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -203,5 +204,7 @@ $users = $db->fetchAll("SELECT * FROM users WHERE {$where} ORDER BY created_at D
             if (btn) btn.style.display = window.innerWidth <= 1024 ? 'inline-flex' : 'none';
         });
     </script>
+
+    <?php include_once __DIR__ . "/../includes/pwa-sw.php"; ?>
 </body>
 </html>

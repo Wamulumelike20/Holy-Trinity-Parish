@@ -72,5 +72,8 @@
     <?php if (isset($extraJS)): ?>
         <script src="<?= $extraJS ?>"></script>
     <?php endif; ?>
+
+    <!-- PWA Install Prompt & Service Worker -->
+    <?php include_once __DIR__ . '/pwa-install.php'; ?>
 </body>
 </html>

@@ -107,6 +107,7 @@ $allDepts = $db->fetchAll("SELECT id, name, slug FROM departments WHERE is_activ
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include_once __DIR__ . "/../../includes/pwa-head.php"; ?>
     <title><?= sanitize($dept['name']) ?> | <?= APP_NAME ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -446,5 +447,7 @@ $allDepts = $db->fetchAll("SELECT id, name, slug FROM departments WHERE is_activ
         </div>
     </div>
     <script src="/holy-trinity/assets/js/main.js"></script>
+
+    <?php include_once __DIR__ . "/../../includes/pwa-sw.php"; ?>
 </body>
 </html>
